@@ -377,6 +377,14 @@ namespace Avalonia.Controls
             return text;
         }
 
+        public void ScrollToLine(int lineIndex)
+        {
+            var lineIndexRelativeCaret = lineIndex - CaretIndex;
+            var isMoved = MoveVertical(lineIndexRelativeCaret);
+            if (!isMoved)
+                throw new ArgumentOutOfRangeException(nameof(lineIndex));
+        }
+
         private async void Copy()
         {
             await ((IClipboard)AvaloniaLocator.Current.GetService(typeof(IClipboard)))
